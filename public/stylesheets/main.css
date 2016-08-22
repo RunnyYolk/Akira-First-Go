@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "Lubalin";
+  src: url("/fonts/LubalinGraphStd-Demi.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 8.3%;
+}
+
+h1 {
+  font-family: "Taviraj", serif;
+  color: #777777;
+  letter-spacing: 0.11em;
+}
+
+h3 {
+  font-family: "Taviraj", serif;
+  color: #777777;
+  letter-spacing: 0.11em;
+}
+
+p {
+  font-family: "Taviraj", serif;
+  color: #777777;
+}
+
+h3:after {
+  width: 30px;
+  height: 1px;
+  background: #dcdcdc;
+  content: " ";
+  display: block;
+  margin-top: 15px;
+}
+
+.about-info {
+  width: 50%;
+  float: left;
+}
+
+.about-contact {
+  width: 30%;
+  float: right;
+}
+
+.contact-left {
+  width: 50%;
+  float: left;
+}
+
+.contact-right {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+
+.projects {
+  padding-top: 50px;
+  float: left;
+}
+
+.project {
+  float: left;
+  position: relative;
+  overflow: hidden;
+  width: 48%;
+  margin-right: 4%;
+  margin-bottom: 4%;
+}
+
+img {
+  max-width: 100%;
+  border: none;
+  height: auto;
+  display: block;
+  float:left;
+  transition: transform .3s ease;
+  -webkit-transition: .3s ease;
+}
+
+.text-container {
+  background-color: rgba(255,255,255,0.95);
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  -webkit-transform: translate3d(0,100%,0);
+  transition: transform .3s ease;
+  -webkit-transition: .3s ease;
+}
+
+h5 {
+  color: #777777;
+  text-transform: uppercase;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  font-size: 17px;
+  font-family: "Taviraj", serif;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.project:nth-of-type(2n+2) {
+ margin-right: 0;
+}
+
+a:hover img {
+  transform: scale(1.05);
+  filter: grayscale(100%);
+  -webkit-filter: blur(1px) grayscale(100%);
+}
+
+a:hover .text-container {
+  -webkit-transform: translate3d(0,0,0);
+}
+
+@media screen and (max-width: 830px) {
+  .contact-right {
+    float: none;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .project {
+    width: 100%;
+  }
+
+  .project:nth-of-type(2n+2) {
+   float: none;
+   margin-right: none;
+  }
+}

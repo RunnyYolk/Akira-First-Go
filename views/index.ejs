@@ -1,0 +1,44 @@
+<% include ../partials/header %>
+
+
+<h1>Akira Inman</h1>
+<div class="about-info">
+  <h3>
+    About Akira
+  </h3>
+  <p>
+    Lorem ipsum dolor sit amet, praesent non semper mauris sed purus, quis vitae gravida et sollicitudin sem duis, quisque sit dolor ultricies dolor diam vehicula. Ac velit dui ante velit nulla lacus, proin varius hendrerit arcu dictum, aliquam vitae ut aenean mauris, pede quisque et id. Accusamus interdum dolor condimentum dolor, dis porttitor, mauris maecenas, ipsum et leo. Ut sapien a turpis maecenas et, ac sed arcu, eu eget at dignissim interdum et maecenas.
+  </p>
+</div>
+<div class="about-contact">
+  <h3>Contact</h3>
+  <div class="contact-left">
+    <p>
+      email:<br>akira@email.com
+    </p>
+    <p>
+      phone:<br>07874502385
+    </p>
+  </div>
+  <div class="contact-right">
+    <p>
+      twitter: <br> @akirainman
+    </p>
+  </div>
+</div>
+<div class="projects">
+  <% projects.forEach(function(project){ %>
+    <div class="project">
+      <a href="#">
+        <img src="<%= project.image %>" alt="" />
+        <div class="text-container">
+          <h5>Project name</h5>
+        </div>
+      </a>
+    </div>
+  <% }); %>
+</div>
+
+
+
+<% include ../partials/footer %>

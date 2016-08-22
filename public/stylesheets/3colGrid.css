@@ -1,0 +1,113 @@
+@font-face {
+  font-family: "Lubalin";
+  src: url("/fonts/LubalinGraphStd-Demi.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 120px
+}
+
+h1 {
+  font-family: "Taviraj", serif;
+  color: #777777;
+  letter-spacing: 0.11em;
+}
+
+h3 {
+  font-family: "Taviraj", serif;
+  color: #777777;
+  letter-spacing: 0.11em;
+}
+
+p {
+  font-family: "Taviraj", serif;
+  color: #777777;
+}
+
+h3:after {
+  width: 30px;
+  height: 1px;
+  background: #dcdcdc;
+  content: " ";
+  display: block;
+  margin-top: 15px;
+}
+
+.about-info {
+  width: 50%;
+  float: left;
+}
+
+.about-contact {
+  width: 30%;
+  float: right;
+}
+
+.contact-left {
+  width: 50%;
+  float: left;
+}
+
+.contact-right {
+  width: 50%;
+  float: right;
+  text-align: right;
+}
+
+.projects {
+  padding-top: 50px;
+  font-size: 0;
+  float: left;
+}
+
+.project {
+  float: left;
+  width: calc(33.33% - 34px);
+}
+
+img {
+  max-width: 100%;
+  border: none;
+  height: auto;
+  display: block;
+  float:left;
+  tranition: transform .3s ease;
+  -webkit-transition: .3s ease;
+}
+
+figure {
+  font-size: 16px;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0;
+}
+
+.project {
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+
+.project:nth-of-type(3n+3) {
+  margin-right: 0px;
+}
+
+@media scree and (min-width: 50em) {
+  a {
+    width: calc(25% - 6px);
+  }
+
+  a:nth-of-type(2n) {
+    margin-right: 8px;
+  }
+  a:nth-of-type(4n) {
+    margin-right: 0;
+  }
+}
+
+a:hover img {
+  transform: scale(1.05);
+  filter: grayscale(100%);
+  -webkit-filter: blur(1px) grayscale(100%);
+}
