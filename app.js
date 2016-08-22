@@ -20,6 +20,6 @@ app.get("/", function(req, res){
 
 app.get("/project")
 
-app.listen(27017, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
   console.log("Fire it UP!");
 })
