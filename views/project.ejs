@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Akira Inman</title>
+    <link rel="stylesheet" href="stylesheets/project.css">
+    <link href="https://fonts.googleapis.com/css?family=Taviraj:200,400" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="images" id="images">
+      <ul class="imageList">
+        <% images.forEach(function(image, i){ %>
+          <% if(i===0){ %>
+            <li class="imageContainer active" data-image="<%= i %>" id="main">
+              <img src="<%= image.image %>" alt="" />
+            </li>
+          <% } else { %>
+            <li class="imageContainer below" data-image="<%= i %>">
+            <img src="<%= image.image %>" alt="" />
+            </li>
+          <% } %>
+        <% }) %>
+      </ul>
+    </div>
+    <div class="titleBar-main" id="titleBar">
+      Project title goes here
+    </div>
+    <script type="text/javascript" src="scripts/scripts.js"></script>
+  </body>
+</html>
