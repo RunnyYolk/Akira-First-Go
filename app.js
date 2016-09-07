@@ -28,7 +28,8 @@ var app = express();
 var mainImage = 'photos/alpine/al3.jpg'
 
 //connect mongoDB
-mongoose.connect("mongodb://localhost/akira");
+// mongoose.connect("mongodb://localhost/akira");
+mongodb:nick:1234@ds019766.mlab.com:19766/akira
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
