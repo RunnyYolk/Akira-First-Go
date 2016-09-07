@@ -27,12 +27,12 @@
   </div>
 </div>
 <div class="projects">
-  <% projects.forEach(function(project){ %>
+  <% project.forEach(function(project){ %>
     <div class="project">
-      <a href="#">
-        <img src="<%= project.image %>" alt="" />
+      <a href="/projects/<%= project._id %>">
+        <img src="<%= project.images[0] %>" alt="" />
         <div class="text-container">
-          <h5>Project name</h5>
+          <h5><%= project.title %></h5>
         </div>
       </a>
     </div>
