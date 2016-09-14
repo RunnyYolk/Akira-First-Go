@@ -23,20 +23,20 @@
         </ul>
       </div>
       <div class="titleBar-main" id="titleBar">
-        <a href="#" class="nav previous" id="previous">
-          <span class="previousTitle">Prev. Project</span>
+        <a href="/projects/<%= prevProject._id %>" class="nav previous" id="previous">
+          <span class="previousTitle"><%= prevProject.title %></span>
           <span class="previousArrow" id="previous"></span>
         </a>
         <h1 class="projectTitle"><%= project.title %></h1>
-        <a href="#" class="nav next" id="next">
+        <a href="/projects/<%= nextProject._id %>" class="nav next" id="next">
           <span class="nextArrow" id="next"></span>
-          <span class="nextTitle">Next project</span>
+          <span class="nextTitle"><%= nextProject.title %></span>
         </a>
       </div>
       <ul class="sliderControls">
         <% project.images.forEach(function(image, i){ %>
-          <li class="sliderControlLi">
-            <span class="sliderControl" id="control<%= i %>">
+          <li class="sliderControlLi" data-slider="<%= i %>">
+            <span class="sliderControl">
             </span>
           </li>
         <% }); %>
@@ -51,13 +51,54 @@
             </p>
           </div>
         </div>
+      </div>
+      <div class="info-icon-div">
         <a class="info-icon-container">
           <span class="info-icon"></span>
         </a>
       </div>
-      <% project.images.forEach(function(image, i){ %>
-        <div class="scroller"></div>
-      <% }); %>
+      <a href="/" class="close-icon-container">
+        <span class="close-icon"></span>
+      </a>
+    </div>
+    <div class="index-container">
+      <h1>Akira Inman</h1>
+      <div class="about-info">
+        <h3>
+          About Akira
+        </h3>
+        <p>
+          Lorem ipsum dolor sit amet, praesent non semper mauris sed purus, quis vitae gravida et sollicitudin sem duis, quisque sit dolor ultricies dolor diam vehicula. Ac velit dui ante velit nulla lacus, proin varius hendrerit arcu dictum, aliquam vitae ut aenean mauris, pede quisque et id. Accusamus interdum dolor condimentum dolor, dis porttitor, mauris maecenas, ipsum et leo. Ut sapien a turpis maecenas et, ac sed arcu, eu eget at dignissim interdum et maecenas.
+        </p>
+      </div>
+      <div class="about-contact">
+        <h3>Contact</h3>
+        <div class="contact-left">
+          <p>
+            email:<br>akira@email.com
+          </p>
+          <p>
+            phone:<br>07874502385
+          </p>
+        </div>
+        <div class="contact-right">
+          <p>
+            twitter: <br> @akirainman
+          </p>
+        </div>
+      </div>
+      <div class="projects">
+        <% projects.forEach(function(project){ %>
+          <div class="project">
+            <a href="/projects/<%= project._id %>">
+              <img src="<%= project.images[0] %>" alt="" />
+              <div class="text-container">
+                <h5><%= projects.title %></h5>
+              </div>
+            </a>
+          </div>
+        <% }); %>
+      </div>
     </div>
     <script type="text/javascript" src="../scripts/scripts.js"></script>
   </body>

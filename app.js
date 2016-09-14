@@ -1,3 +1,5 @@
+"use strict";
+
 var bodyParser   = require("body-parser"),
     express    = require('express'),
     multer     = require('multer'),
@@ -7,7 +9,8 @@ var bodyParser   = require("body-parser"),
     uid        = require('uid2'),
     fs         = require('fs'),
     crypto     = require('crypto'),
-    Project    = require('./models/project') // Project schema
+    Project    = require('./models/project'), // Project schema
+    Promise = require("bluebird"),
     methodOverride = require("method-override");
 
 var storage = multer.diskStorage({
@@ -28,9 +31,9 @@ var app = express();
 var mainImage = 'photos/alpine/al3.jpg'
 
 //connect mongoDB
-// mongoose.connect("mongodb://localhost/akira");
-mongoose.connect("mongodb://nick:1234@ds019766.mlab.com:19766/akira");
-// mongodb://nick:1234@ds019766.mlab.com:19766/akira
+mongoose.connect("mongodb://localhost/akira");
+// mongoose.connect("mongodb://nick:1234@ds019766.mlab.com:19766/akira");
+mongoose.Promise = Promise;
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -38,6 +41,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use('/images', express.static(__dirname + '/writable'));
+
+// Routes
 
 app.get('/', function(req, res){
   //Get all projects from the DB
@@ -51,19 +56,165 @@ app.get('/', function(req, res){
   });
 });
 
+// app.get('/projects/:_id', function(req, res){
+// var nextProject = Project.find({_id: {$gt: req.params._id}}).sort({_id: 1 }).limit(1)
+// var prevProject = Project.find({_id: {$lt: req.params._id}}).sort({_id: -1 }).limit(1)
+// console.log('nextProject');
+// console.log(nextProject);
+// console.log('==============================================');
+// console.log('prevProject');
+// console.log(prevProject);
+// Project.findById(req.params._id, function(err, foundProject){ // find the project for the clicked link
+//   if(err){ // handle any errors
+//     console.log('Error finding project');
+//     console.log(err);
+//   } else { // if no errors, execute the query object for the next project
+//       nextProject.exec(function(err, next){
+//         if(err){
+//           console.log('err');
+//           console.log(err);
+//         } else if(next){ // if next has a value...
+//           prevProject.exec(function(err, prev){ // ... execute the query object for the previous project
+//             if(err){
+//               console.log('err');
+//               console.log(err);
+//             } else if(prev){ // if previous has a value...
+//               console.log(prev[0].title);
+//               console.log('==============================================');
+//               console.log(foundProject);
+//               console.log('==============================================');
+//               console.log(next[0].title);
+//               res.render('project', {project: foundProject, nextProject: next[0], prevProject: prev[0]}); //... render the project page with current project, next project and previous project
+//             } else { // if previous doesn't have a value...
+//               var prevProject = Project.find().sort({_id: -1}).limit(1); //... get a query object for the last document in the database
+//               prevProject.exec(function(err, prev){ // execute the query object for the last document
+//                 if(err){
+//                   console.log('err');
+//                   console.log(err);
+//                 } else { // with no errors...
+//                   console.log(prev[0].title);
+//                   console.log('==============================================');
+//                   console.log(foundProject);
+//                   console.log('==============================================');
+//                   console.log(next[0].title);
+//                   res.render('project', {project: foundProject, nextProject: next[0], prevProject: prev[0]}); // ... render the page
+//                 }
+//               });
+//             }
+//           });
+//         } else { //if next doesn't have a value...
+//           var nextProject = Project.find().sort({_id: 1 }).limit(1); // ... get a query object for the first document
+//           nextProject.exec(function(err, next){ // execute the query object
+//             if(err){
+//               console.log('err');
+//               console.log(err);
+//             } else { // with no errors...
+//               console.log(prev[0].title);
+//               console.log('==============================================');
+//               console.log(foundProject);
+//               console.log('==============================================');
+//               console.log(next[0].title);
+//               res.render('project', {project: foundProject, nextProject: next[0], prevProject: prev[0]}); //... render the page
+//           };
+//         });
+//       }
+//     });
+//   });
+// });
+
 app.get('/projects/:_id', function(req, res){
-    console.log("req.params");
-    console.log(req.params._id);
-    //find project with Id
+  var nextProject = Project.find({_id: {$gt: req.params._id}}).sort({_id: 1 }).limit(1)
+  var prevProject = Project.find({_id: {$lt: req.params._id}}).sort({_id: -1 }).limit(1)
+  // find the project for the clicked link
+  Project.find({}, function(err, allProjects){
+    if(err){
+      console.log('error finding projects from DB:');
+      console.log(err);
+    } else {
+      console.log("==========================================================");
+      console.log(allProjects);
+      console.log("==========================================================");
     Project.findById(req.params._id, function(err, foundProject){
-      if(err){
+      if(err){ // handle any errors
         console.log('Error finding project');
         console.log(err);
       } else {
-        console.log(foundProject);
-        res.render('project', {project: foundProject});
+        nextProject.exec(function(err, next){ // if no errors, execute the query object for the next project
+          if(err){ // handle any errors
+            console.log('Error getting next project');
+            console.log(err);
+          } else if(next.length > 0){ // if next has a value...
+            prevProject.exec(function(err, prev){ // ... execute the query object for the previous project
+              if(err){  // handle any errors
+                console.log('error getting previous project');
+                console.log(err);
+              } else if(prev.length > 0){ // if previous has a value...
+                console.log('prev and next have a value');
+                console.log('============================foundProject============================');
+                console.log(foundProject);
+                console.log('============================prevProject============================');
+                console.log(prev);
+                console.log('============================nextProject============================');
+                console.log(next);
+                console.log('next.length');
+                console.log(next.length);
+                res.render('project', {projects: allProjects, project: foundProject, nextProject: next[0], prevProject: prev[0]});//... render the project page with current project, next project and previous project
+              } else { // if previous doesn't have a value...
+                var prevProject = Project.find().sort({_id: -1}).limit(1);//... get a query object for the last document in the database
+                prevProject.exec(function(err, prev){ // execute the query object for the last document
+                  if(err){ // handle any errors
+                    console.log('error getting last document');
+                    console.log(err);
+                  } else { // with no errors...
+                    console.log('next has a value, but previous does not. Gone to last project');
+                    res.render('project', {projects: allProjects, project: foundProject, nextProject: next[0], prevProject: prev[0]}); // ... render the page
+                  }
+                });
+              }
+            });
+          } else { //if next doesn't have a value...
+            var nextProject = Project.find().sort({_id: 1 }).limit(1);//get a query object for the first document
+            nextProject.exec(function(err, next){ // execute the query object
+              if(err){
+                console.log('error getting first project');
+                console.log(err);
+              } else { // with no errors...
+                prevProject.exec(function(err, prev){ // ... execute the query object for the previous project
+                  if(err){  // handle any errors
+                    console.log('error getting previous project');
+                    console.log(err);
+                  } else if(prev.length > 0){ // if previous has a value...
+                    console.log('prev and next have a value');
+                    console.log('============================foundProject============================');
+                    console.log(foundProject);
+                    console.log('============================prevProject============================');
+                    console.log(prev);
+                    console.log('============================nextProject============================');
+                    console.log(next);
+                    console.log('next.length');
+                    console.log(next.length);
+                    res.render('project', {projects: allProjects, project: foundProject, nextProject: next[0], prevProject: prev[0]});//... render the project page with current project, next project and previous project
+                  } else { // if previous doesn't have a value...
+                    var prevProject = Project.find().sort({_id: -1}).limit(1);//... get a query object for the last document in the database
+                    prevProject.exec(function(err, prev){ // execute the query object for the last document
+                      if(err){ // handle any errors
+                        console.log('error getting last document');
+                        console.log(err);
+                      } else { // with no errors...
+                        console.log('next has a value, but previous does not. Gone to last project');
+                        res.render('project', {projects: allProjects, project: foundProject, nextProject: next[0], prevProject: prev[0]}); // ... render the page
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
       }
     });
+    }
+  });
 });
 
 app.get('/new', function(req, res){
@@ -115,6 +266,7 @@ app.post('/projects', function (req, res){
 //   console.log(req.body);
 // });
 
-app.listen(process.env.PORT, process.env.IP, function(){
+// app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(27017, process.env.IP, function(){
   console.log('Fire it UP!');
 })

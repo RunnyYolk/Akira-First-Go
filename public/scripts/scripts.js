@@ -1,12 +1,13 @@
-// Select the div containing all the images
-// var div = document.getElementById("images");
-// Add all the image containers to var images
+
 var images = [].slice.call(document.getElementsByClassName("imageContainer"));
-var sliders = [].slice.call(document.getElementsByClassName('sliderControlLi'));
+var sliders = [].slice.call(document.getElementsByClassName("sliderControlLi"));
 var infoBtn = false;
 var prev = -1;
 var active = 0;
 var next = 1;
+var scroller = document.getElementsByClassName("scroller");
+var scrollOn = true;
+var delta;
 
 sliders[active].id = "focus";
 
@@ -24,102 +25,103 @@ function infoTog (){
   }
 };
 
-function throttle (callback, limit) {
-  var wait = false;
-  return function () {
-    if (!wait) {
-      callback.call();
-      wait = true;
-      setTimeout(function () {
-        wait = false;
-      }, limit);
-    }
+// Event listenere for click on info icon
+document.querySelector(".info-icon-container").addEventListener("click", infoTog);
+document.querySelector(".pageFade").addEventListener("click", infoTog);
+
+//Event listener for slider controls click
+sliders.forEach(function (sl, i){
+  sl.addEventListener("click", function(){ // On click
+    sliders.forEach(function (sldr, x){
+      sldr.id = ""
+    });
+    console.log("you clicked slider controler " + i + "!");
+    images.forEach(function (img, n){
+      if(n<i){
+        img.className = "imageContainer above" // change all imageContainer with data-image < this data-slider to class above
+      } else if (n>i){
+        img.className = "imageContainer below" // change all imageContainer with data-image > this data-slider to class below
+      }
+    });
+    images[i].className = "imageContainer active"; // change the imageContainer with data-image === this data-slider to class active
+    sl.id = "focus";
+    prev = (i-1);
+    active = i;
+    next = (i+1);
+    checkTitleBar()
+  });
+});
+
+if (window.addEventListener) {
+	window.addEventListener("mousewheel", MouseWheelHandler, false); // IE9, Chrome, Safari, Opera
+	window.addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
+} else {
+  window.attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
+}
+
+function MouseWheelHandler(e) {
+  // cross-browser wheel delta
+	var e = window.event || e; // old IE support
+	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+  if(delta == -1){
+    scrollUp();
+    console.log(delta)
+  } else if(delta == 1) {
+    scrollDown();
+    console.log(delta)
   }
 }
 
-document.querySelector(".info-icon-container").addEventListener("click", infoTog);
-document.querySelector(".pageFade").addEventListener("click", infoTog);
-// Listen for keypress
-// document.addEventListener("keydown", function (e) {
-//   var key = e.which || e.keyCode;
-//   if (next > 0 && next < images.length && (key === 40 || key === 32)) { //up arrow
-//     //move active image up
-//     images[active].className = "imageContainer above";
-//     // move next image up
-//     images[next].className = "imageContainer active";
-//     sliders[active].id = "";
-//     sliders[next].id = "focus";
-//     // change next image to active image
-//     active++;
-//     // line-up the next immage
-//     next++;
-//     // pile-up the last image
-//     prev++;
-//   } else if (next > 1 && next <= images.length && key === 38) { //down arrow
-//     //move active image down
-//     images[active].className = "imageContainer below";
-//     //move prev image down
-//     images[prev].className = "imageContainer active";
-//     sliders[active].id = "";
-//     sliders[prev].id = "focus";
-//     //change prev image to active
-//     active--;
-//     //line up next image
-//     next--;
-//     //pile-up the last image
-//     prev--;
-//   }
-//   if (active == 0) {
-//     document.getElementById("titleBar").className = "titleBar-main";
-//   } else {
-//     document.getElementById("titleBar").className = "titleBar-up"
-//   }
-// });
+document.onkeydown = keydown
 
-var lastScrollTop = pageYOffset;
-
-function scrollFunc () {
-  var st = window.scrollY;
-  if (next > 0 && next < images.length && st > lastScrollTop) {
-    console.log("scroll up!");
-    console.log(st);
-    // document.querySelector(".main-container").scrollIntoView();
-    //move active image up
-    images[active].className = "imageContainer above";
-    // move next image up
-    images[next].className = "imageContainer active";
-    sliders[active].id = "";
-    sliders[next].id = "focus";
-    // change next image to active image
-    active++;
-    // line-up the next immage
-    next++;
-    // pile-up the last image
-    prev++;
-  } else if (next > 1 && next <= images.length && st < lastScrollTop) {
-    console.log("scroll down!");
-    console.log(st);
-    // document.querySelector(".main-container").scrollIntoView();
-    //move active image down
-    images[active].className = "imageContainer below";
-    //move prev image down
-    images[prev].className = "imageContainer active";
-    sliders[active].id = "";
-    sliders[prev].id = "focus";
-    //change prev image to active
-    active--;
-    //line up next image
-    next--;
-    //pile-up the last image
-    prev--;
-  }
-  lastScrollTop = st;
-  if (active == 0) {
-    document.getElementById("titleBar").className = "titleBar-main";
-  } else {
-    document.getElementById("titleBar").className = "titleBar-main";
-    document.getElementById("titleBar").className = "titleBar-up";
+function keydown(k){
+  if(k.keyCode === 38){
+    scrollDown();
+  } else if(k.keyCode === 40 || k.keyCode === 32){
+    scrollUp();
   }
 };
 
-window.addEventListener("scroll", throttle(scrollFunc, 1000));
+function scrollUp(){
+    if (scrollOn && next > 0 && next < images.length) {
+      images[active].className = "imageContainer above";
+      images[next].className = "imageContainer active";
+      sliders[active].id = "";
+      sliders[next].id = "focus";
+      active++;
+      next++;
+      prev++;
+      scrollOn = false;
+      setTimeout(function(){
+        scrollOn = true;
+      }, 1100);
+    } else if(scrollOn && next === images.length){
+      // scrollOn = false;
+    }
+    checkTitleBar();
+  }
+
+function scrollDown(){
+  if (scrollOn && next > 1 && next <= images.length) {
+      images[active].className = "imageContainer below";
+      images[prev].className = "imageContainer active";
+      sliders[active].id = "";
+      sliders[prev].id = "focus";
+      active--;
+      next--;
+      prev--;
+      scrollOn = false;
+      setTimeout(function(){
+        scrollOn = true;
+      }, 1100);
+    }
+    checkTitleBar();
+  }
+
+function checkTitleBar(){
+  if (active == 0) {
+    document.getElementById("titleBar").className = "titleBar-main";
+  } else {
+    document.getElementById("titleBar").className = "titleBar-up";
+  }
+}
