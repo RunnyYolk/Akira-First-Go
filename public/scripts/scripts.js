@@ -56,19 +56,21 @@ if (window.addEventListener) {
 	window.addEventListener("mousewheel", MouseWheelHandler, false); // IE9, Chrome, Safari, Opera
 	window.addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
 } else {
-  window.attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
+  window.attachEvent("onmousewheel", MouseWheelHandler, false); // IE 6/7/8
 }
 
 function MouseWheelHandler(e) {
-  // cross-browser wheel delta
-	var e = window.event || e; // old IE support
-	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-  if(delta == -1){
-    scrollUp();
-    console.log(delta)
-  } else if(delta == 1) {
-    scrollDown();
-    console.log(delta)
+  if(scrollOn){
+    // cross-browser wheel delta
+  	var e = window.event || e; // old IE support
+  	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+    if(delta == -1){
+      scrollUp();
+      console.log(delta)
+    } else if(delta == 1) {
+      scrollDown();
+      console.log(delta)
+    }
   }
 }
 
@@ -83,7 +85,7 @@ function keydown(k){
 };
 
 function scrollUp(){
-    if (scrollOn && next > 0 && next < images.length) {
+    if (next > 0 && next < images.length) {
       images[active].className = "imageContainer above";
       images[next].className = "imageContainer active";
       sliders[active].id = "";
@@ -95,14 +97,31 @@ function scrollUp(){
       setTimeout(function(){
         scrollOn = true;
       }, 1100);
-    } else if(scrollOn && next === images.length){
-      // scrollOn = false;
+      checkTitleBar();
+    } else if(next === images.length){
+      scrollOn = false;
+      images[active].className = "imageContainer above";
+      if(infoBtn){
+        document.querySelector(".info-container-open").className = "info-container";
+        document.querySelector(".pageFadeOn").className = "pageFade";
+        document.querySelector(".infoTextContainerOpen").className = "infoTextContainer";
+        infoBtn = false;
+      }
+      setTimeout(function(){
+        document.querySelector(".info-icon-container").className = "info-icon-container-hidden";
+        document.querySelector(".close-icon-container").className = "close-icon-container-hidden";
+        document.querySelector(".sliderControls").className = "sliderControls-hidden";
+        document.querySelector(".titleBar-up").className = "titleBar-up-hidden";
+        document.querySelector(".index-container").className = "index-container show-no-scroll";
+      }, 500);
+      setTimeout(function(){
+        document.querySelector(".show-no-scroll").className = "index-container show"
+      }, 1000);
     }
-    checkTitleBar();
   }
 
 function scrollDown(){
-  if (scrollOn && next > 1 && next <= images.length) {
+  if (next > 1 && next <= images.length) {
       images[active].className = "imageContainer below";
       images[prev].className = "imageContainer active";
       sliders[active].id = "";

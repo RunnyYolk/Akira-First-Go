@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Edit Project</title>
+  </head>
+  <body>
+    <h1>Edit Project</h1>
+    <form class='edit-project' action='/projects/<%= project._id %>?_method=PUT' method='POST'>
+      <input type="text" name="title" value="<%= project.title %>">
+      <br>
+      <textarea name="description" rows="8" cols="40"><%= project.description %></textarea>
+      <br>
+      <% project.images.forEach(function(image, i){ %>
+        <input type="text" accept="image/*" name="uploadedImages" value="<%= image %>"/>
+        <br>
+      <% }); %>
+      <br>
+      <button type="submit" name="button">Save</button>
+    </form>
+  </body>
+</html>

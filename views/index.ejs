@@ -1,5 +1,7 @@
 <% include ../partials/header %>
-
+  <% if (currentUser){ %>
+    <a class="logout-btn" href="/logout"><button type="button" name="logout">Logout</button></a>
+  <% } %>
   <h1>Akira Inman</h1>
   <div class="about-info">
     <h3>

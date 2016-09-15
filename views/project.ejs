@@ -52,14 +52,15 @@
           </div>
         </div>
       </div>
-      <div class="info-icon-div">
         <a class="info-icon-container">
           <span class="info-icon"></span>
         </a>
-      </div>
       <a href="/" class="close-icon-container">
         <span class="close-icon"></span>
       </a>
+      <% if (currentUser){ %>
+        <a class="edit-btn" href="/projects/<%= project._id %>/edit"><button type="button" name="edit">Edit Project</button></a>
+      <% } %>
     </div>
     <div class="index-container">
       <h1>Akira Inman</h1>
@@ -93,7 +94,7 @@
             <a href="/projects/<%= project._id %>">
               <img src="<%= project.images[0] %>" alt="" />
               <div class="text-container">
-                <h5><%= projects.title %></h5>
+                <h5><%= project.title %></h5>
               </div>
             </a>
           </div>
