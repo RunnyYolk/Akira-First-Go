@@ -514,15 +514,17 @@ html, body {
   background-size: cover;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  height: 30px;
-  width: 30px;
+  height: 40%;
+  width: 40%;
+  min-width: 20px;
+  min-height: 20px;
   behavior: url(PIE.htc);
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
 
 .main-container .info-icon-container {
-  position: absolute;
+  position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -600,11 +602,12 @@ html, body {
 }
 
 .main-container .info-icon {
-  position: absolute;
   background-image: url(../fonts/i.png);
   background-size: cover;
-  height: 30px;
-  width: 30px;
+  height: 40%;
+  width: 40%;
+  min-width: 20px;
+  min-height: 20px;
   behavior: url(PIE.htc);
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -641,11 +644,12 @@ html, body {
 }
 
 .main-container .info-container-open + .info-icon-container .info-icon {
-  position: absolute;
   background-image: url(../fonts/x.png);
   background-size: cover;
-  height: 30px;
-  width: 30px;
+  height: 40%;
+  width: 40%;
+  min-width: 20px;
+  min-height: 20px;
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
   behavior: url(PIE.htc);
