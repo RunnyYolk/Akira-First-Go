@@ -75,17 +75,28 @@ function MouseWheelHandler(e) {
 }
 
 // Variablea for capturing swipe / scroll actions on touch devices
-var lastY
+var startY
+var screenY
+var touchScrollOn = true
+
+window.addEventListener('touchstart', function(e){
+  startY = e.touches[0].clientY
+})
 
 window.addEventListener('touchmove', function(e){
-        var currentY = e.touches[0].clientY;
-        if(currentY > lastY){
-          scrollDown();
-        } else if(currentY < lastY){
-          scrollUp();
-        }
-        lastY = currentY
-    }, false)
+  var currentY = e.touches[0].clientY;
+  if(touchScrollOn){
+    if(currentY > startY){
+      scrollDown();
+    } else if(currentY < startY){
+      scrollUp();
+    }
+    touchScrollOn = false;
+    setTimeout(function(){
+      touchScrollOn = true;
+    }, 1100);
+  }
+}, false)
 
 // window.addEventListener('touchend', function(e){
 //         var touchobj = e.changedTouches[0]
