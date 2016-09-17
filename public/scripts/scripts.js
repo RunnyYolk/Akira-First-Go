@@ -75,31 +75,16 @@ function MouseWheelHandler(e) {
 }
 
 // Variablea for capturing swipe / scroll actions on touch devices
-var startX,
-    startY,
-    distX,
-    distY,
-    // downThreshold = 150, //required min distance traveled to be considered swipe
-    // upThreshold = -150, //required min distance traveled to be considered swipe
-    // allowedTime = 250, // maximum time allowed to travel that distance
-    elapsedTime,
-    startTime;
+var lastY
 
 window.addEventListener('touchmove', function(e){
-        var touchobj = e.changedTouches[0]
-        startX = touchobj.pageX
-        startY = touchobj.pageY
-        distX = touchobj.pageY - startX
-        distY = touchobj.pageY - startY
-        console.log('Start X: ' + startX);
-        console.log('Start Y: ' + startY);
-        console.log('Distance X: ' + distX);
-        console.log('Distance Y: ' + distY);
-        if(distY > 20){
+        var currentY = e.touches[0].clientY;
+        if(currentY > lastY){
           scrollDown();
-        } else if(distY > -20){
+        } else if(currentY < lastY){
           scrollUp();
         }
+        lastY = currentY
     }, false)
 
 // window.addEventListener('touchend', function(e){
