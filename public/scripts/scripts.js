@@ -74,6 +74,38 @@ function MouseWheelHandler(e) {
   }
 }
 
+// Variablea for capturing swipe / scroll actions on touch devices
+var startX,
+    startY,
+    dist,
+    downThreshold = 150, //required min distance traveled to be considered swipe
+    upThreshold = -150, //required min distance traveled to be considered swipe
+    allowedTime = 250, // maximum time allowed to travel that distance
+    elapsedTime,
+    startTime;
+
+window.addEventListener('touchstart', function(e){
+        var touchobj = e.changedTouches[0]
+        dist = 0
+        startX = touchobj.pageX
+        startY = touchobj.pageY
+        startTime = new Date().getTime() // record time when finger first makes contact with surface
+    }, false)
+
+window.addEventListener('touchend', function(e){
+        var touchobj = e.changedTouches[0]
+        dist = touchobj.pageY - startY // get total dist traveled by finger while in contact with surface
+        elapsedTime = new Date().getTime() - startTime // get time elapsed
+        // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
+        if(elapsedTime <= allowedTime && dist >= downThreshold && Math.abs(touchobj.pageX - startX) <= 100){
+          scrollDown();
+          console.log('scroll down')
+        } else if(elapsedTime <= allowedTime && dist <= upThreshold && Math.abs(touchobj.pageX - startX) <= 100){
+          scrollUp();
+          console.log('scroll up')
+        }
+    }, false)
+
 document.onkeydown = keydown
 
 function keydown(k){

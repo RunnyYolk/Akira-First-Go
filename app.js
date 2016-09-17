@@ -179,7 +179,7 @@ app.get('/new', isLoggedIn, function(req, res){
   res.render('new');
 });
 
-// Handle new porjects post logic
+// Handle new projects post logic
 app.post('/projects', isLoggedIn, function (req, res){
   upload(req, res, function (err){
     if (err) {
