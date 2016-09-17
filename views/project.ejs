@@ -24,13 +24,21 @@
       </div>
       <div class="titleBar-main" id="titleBar">
         <a href="/projects/<%= prevProject._id %>" class="nav previous" id="previous">
-          <span class="previousTitle"><%= prevProject.title %></span>
+          <span class="previousTitle">
+            <h3>
+              <%= prevProject.title %>
+            </h3>
+          </span>
           <span class="previousArrow" id="previous"></span>
         </a>
         <h1 class="projectTitle"><%= project.title %></h1>
         <a href="/projects/<%= nextProject._id %>" class="nav next" id="next">
           <span class="nextArrow" id="next"></span>
-          <span class="nextTitle"><%= nextProject.title %></span>
+          <span class="nextTitle">
+            <h3>
+              <%= nextProject.title %>
+            </h3>
+          </span>
         </a>
       </div>
       <ul class="sliderControls">

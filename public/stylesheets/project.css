@@ -99,8 +99,11 @@ html, body {
 }
 
 .main-container .imageContainer img {
-  height: 81.5vh;
-  width: auto;
+  height: 82vh;
+  max-width: 100vw;
+  object-fit: contain;
+  /*width: auto;*/
+  /*height: auto;*/
   -webkit-animation:load_up 1s forwards;
           animation:load_up 1s forwards;
 }
@@ -125,6 +128,7 @@ html, body {
 
 .main-container .titleBar-main {
   position: fixed;
+  font-size: calc(.5em + 1vw);
   display:-webkit-box;
   display:-ms-flexbox;
   display:flex;
@@ -143,6 +147,7 @@ html, body {
 }
 .main-container .titleBar-up {
   position: fixed;
+  font-size: calc(.3em + 0.5vw);
   display:-webkit-box;
   display:-ms-flexbox;
   display:flex;
@@ -152,7 +157,6 @@ html, body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  font-size: 60%;
   width: 100vw;
   height: 9%;
   bottom: 0%;
@@ -278,7 +282,8 @@ html, body {
 .main-container .previousTitle {
   font-family: "helvetica", serif;
   text-transform: capitalize;
-  font-size: 80%;
+  text-align: right;
+  font-size: calc(.5em + .3vw);
   line-height: 100%;
   letter-spacing: 0.11em;
   opacity: 0;
@@ -286,16 +291,30 @@ html, body {
   -webkit-transition-duration: .45s;
           transition-duration: .45s;
 }
+
 .main-container .nextTitle {
   font-family: "helvetica", serif;
   text-transform: capitalize;
-  font-size: 80%;
+  text-align: left;
+  font-size: calc(.5em + .3vw);
   line-height: 100%;
   letter-spacing: 0.11em;
   opacity: 0;
   padding-left: 5%;
   -webkit-transition-duration: .45s;
           transition-duration: .45s;
+}
+
+@media screen and (max-width: 760px) {
+  .main-container .previousTitle, .nextTitle {
+    display: none;
+  }
+  .main-container #previous {
+    padding-right: 7%;
+  }
+  .main-container #next {
+    padding-left: 7%;
+  }
 }
 
 .main-container .next:hover {
@@ -321,8 +340,8 @@ html, body {
   position: fixed;
   padding-top: 30vh;
   height: 100vh;
-  width: 4%;
-  right: 0;
+  width: 20px;
+  right: 27.5px;
   top: 0;
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
   transition: all 1.1s cubic-bezier(.49,0,.38,.97);
@@ -414,9 +433,14 @@ html, body {
 
 .main-container .close-icon-container {
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #292A2A;
-  height: 75px;
-  width: 75px;
+  height: 70px;
+  width: 70px;
+  max-height: 9vh;
+  max-width: 9vh;
   top: 0;
   right: 0;
 }
@@ -462,8 +486,10 @@ html, body {
 .main-container .close-icon-container-hidden {
   position: fixed;
   background-color: #292A2A;
-  height: 75px;
-  width: 75px;
+  height: 70px;
+  width: 70px;
+  max-height: 9vh;
+  max-width: 9vh;
   top: 0;
   right: -75px;
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
@@ -471,15 +497,12 @@ html, body {
 }
 
 .main-container .close-icon {
-  position: absolute;
   background-image: url(../fonts/x.png);
   background-size: cover;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   height: 30px;
   width: 30px;
-  top: 23px;
-  left: 23px;
   behavior: url(PIE.htc);
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -487,9 +510,14 @@ html, body {
 
 .main-container .info-icon-container {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #292A2A;
-  height: 75px;
-  width: 75px;
+  height: 70px;
+  width: 70px;
+  max-height: 9vh;
+  max-width: 9vh;
   top: 0;
   left: 0;
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
@@ -537,10 +565,12 @@ html, body {
 .main-container .info-icon-container-hidden {
   position: absolute;
   background-color: #292A2A;
-  height: 75px;
-  width: 75px;
+  height: 70px;
+  width: 70px;
+  max-height: 9vh;
+  max-width: 9vh;
   top: 0;
-  left: -75px;
+  left: -70px;
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
   transition: all 1.1s cubic-bezier(.49,0,.38,.97);
 }
@@ -556,8 +586,6 @@ html, body {
   background-size: cover;
   height: 30px;
   width: 30px;
-  top: 20px;
-  left: 20px;
   behavior: url(PIE.htc);
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -599,8 +627,6 @@ html, body {
   background-size: cover;
   height: 30px;
   width: 30px;
-  top: 20px;
-  left: 20px;
   -webkit-transform: rotate(-135deg);
   transform: rotate(-135deg);
   behavior: url(PIE.htc);
@@ -654,6 +680,7 @@ html, body {
 
 .main-container .infoTextContainer h3, .infoTextContainerOpen h3 {
   text-align: center;
+  font-size: calc(.7em + .8vw);
   font-family: "helvetica", serif;
   text-transform: capitalize;
   text-align: left;
@@ -663,6 +690,7 @@ html, body {
 
 .main-container .infoTextContainer p, .infoTextContainerOpen p {
   font-family: "helvetica", serif;
+  font-size: calc(.4em + .6vw);
   text-transform: capitalize;
   text-align: left;
   color: white;
