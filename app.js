@@ -32,9 +32,9 @@ var upload = multer({storage: storage}).any('uploadedImages');
 
 //connect mongoDB
 // ========== For Local =============
-mongoose.connect("mongodb://localhost/akira");
+// mongoose.connect("mongodb://localhost/akira");
 // ========== For Heroku ============
-// mongoose.connect("mongodb://nick:1234@ds019766.mlab.com:19766/akira");
+mongoose.connect("mongodb://nick:1234@ds019766.mlab.com:19766/akira");
 mongoose.Promise = Promise;
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -281,8 +281,8 @@ app.get('/logout', function(req, res){
 });
 
 // ======== For Heroku ========
-// app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
 // ======== For Local =========
-app.listen(27017, process.env.IP, function(){
+// app.listen(27017, process.env.IP, function(){
   console.log('Fire it UP!');
 })
