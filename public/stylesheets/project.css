@@ -26,7 +26,8 @@ html, body {
 .main-container .above {
   position: absolute;
   display: none;
-  transform: translateY(-200vh);
+  -webkit-transform: translateY(-200vh);
+          transform: translateY(-200vh);
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
   transition: all 1.1s cubic-bezier(.49,0,.38,.97);
 }
@@ -34,7 +35,8 @@ html, body {
 .main-container .active {
   position: absolute;
   display: list-item;
-  transform: translateY(0);
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
   transition: all 1.1s cubic-bezier(.49,0,.38,.97);
 }
@@ -75,7 +77,8 @@ html, body {
 .main-container .below {
   position: absolute;
   display: list-item;
-  transform: translateY(200vh);
+  -webkit-transform: translateY(200vh);
+          transform: translateY(200vh);
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
   transition: all 1.1s cubic-bezier(.49,0,.38,.97);
 }
@@ -101,7 +104,8 @@ html, body {
 .main-container .imageContainer img {
   height: 82vh;
   max-width: 100vw;
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   /*width: auto;*/
   /*height: auto;*/
   -webkit-animation:load_up 1s forwards;
@@ -115,7 +119,8 @@ html, body {
   min-height: 100%;
   position: relative;
   overflow: hidden;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .main-container .projectTitle {
@@ -147,7 +152,7 @@ html, body {
 }
 .main-container .titleBar-up {
   position: fixed;
-  font-size: calc(.3em + 0.5vw);
+  font-size: 60%;
   display:-webkit-box;
   display:-ms-flexbox;
   display:flex;
@@ -161,7 +166,8 @@ html, body {
   height: 9%;
   bottom: 0%;
   background-color: white;
-  transform: translateY(-91vh);
+  -webkit-transform: translateY(-91vh);
+          transform: translateY(-91vh);
   -webkit-transition: all .9s cubic-bezier(.49,0,.38,.97);
   transition: all .9s cubic-bezier(.49,0,.38,.97);
   -webkit-transition-delay: 0.2s;
@@ -184,7 +190,8 @@ html, body {
   height: 9%;
   bottom: 0;
   background-color: white;
-  transform: translateY(-100vh);
+  -webkit-transform: translateY(-120vh);
+          transform: translateY(-120vh);
   -webkit-transition: all .9s cubic-bezier(.49,0,.38,.97);
   transition: all .9s cubic-bezier(.49,0,.38,.97);
   -webkit-transition-delay: 0.2s;
@@ -433,9 +440,15 @@ html, body {
 
 .main-container .close-icon-container {
   position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #292A2A;
   height: 70px;
   width: 70px;
@@ -510,9 +523,15 @@ html, body {
 
 .main-container .info-icon-container {
   position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #292A2A;
   height: 70px;
   width: 70px;
