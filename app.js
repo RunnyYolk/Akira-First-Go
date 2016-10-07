@@ -248,6 +248,8 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
+
+// User registration logic
 app.post('/register', function(req, res){
   var newUser = new User({username: req.body.username});
   User.register(newUser, req.body.password, function(err, user){
@@ -281,8 +283,8 @@ app.get('/logout', function(req, res){
 });
 
 // ======== For Heroku ========
-app.listen(process.env.PORT, process.env.IP, function(){
+// app.listen(process.env.PORT, process.env.IP, function(){
 // ======== For Local =========
-// app.listen(27017, process.env.IP, function(){
+app.listen(27017, process.env.IP, function(){
   console.log('Fire it UP!');
 })

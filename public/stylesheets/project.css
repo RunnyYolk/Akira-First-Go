@@ -411,6 +411,7 @@ html, body {
   transition: .45s ease-in-out;
   -webkit-transition: all 1.1s cubic-bezier(.49,0,.38,.97);
   transition: all 1.1s cubic-bezier(.49,0,.38,.97);
+  cursor: pointer;
 }
 
 .main-container .sliderControls-hidden li {
@@ -669,8 +670,8 @@ html, body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   left: 0;
   top: 10%;
   width: 50vw;
@@ -685,12 +686,11 @@ html, body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   left: 0;
   top: 10%;
   width: 50vw;
-  -webkit-clip-path: polygon(0% 0%,90% 0%,90% 100%,0% 100%);
   -webkit-transition: all 1s cubic-bezier(.34,.85,.68,.97);
   transition: all 1s cubic-bezier(.34,.85,.68,.97);
 }
@@ -698,7 +698,6 @@ html, body {
 .main-container .innerTextContainer {
   position: relative;
   width: 40vw;
-
 }
 
 .main-container .infoTextContainer h3, .infoTextContainerOpen h3 {
